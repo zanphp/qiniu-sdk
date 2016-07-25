@@ -1,0 +1,31 @@
+{
+    "name": "php-3rd-lib/yz-qiniu-php-sdk",
+    "type": "library",
+    "description": "Qiniu Resource (Cloud) Storage SDK for PHP Zan Framework",
+    "keywords": ["qiniu", "storage", "sdk", "cloud", "zan", "async"],
+    "homepage": "http://developer.qiniu.com/",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Qiniu",
+            "email": "sdk@qiniu.com",
+            "homepage": "http://www.qiniu.com"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "git",
+            "url": "git@gitlab.qima-inc.com:php-lib/zan.git"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "zanphp/zan": "dev-master"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {"Qiniu\\": "src/Qiniu"},
+        "files": ["src/Qiniu/functions.php"]
+    }
+}
