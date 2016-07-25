@@ -4,8 +4,9 @@ namespace Zan\Qiniu;
 
 use Zan\Qiniu\Processing\ImageUrlBuilder;
 
-if (!defined('QINIU_FUNCTIONS_VERSION')) {
-    define('QINIU_FUNCTIONS_VERSION', Config::SDK_VER);
+// namespace不同, 不检查, 除非引入两次, 否则不会产生函数重定义
+//if (!defined('QINIU_FUNCTIONS_VERSION')) {
+//    define('QINIU_FUNCTIONS_VERSION', Config::SDK_VER);
 
    /**
      * 计算文件的crc32检验码:
@@ -238,4 +239,4 @@ if (!defined('QINIU_FUNCTIONS_VERSION')) {
 
         return call_user_func_array(array($imageUrlBuilder, 'waterText'), func_get_args());
     }
-}
+// }
