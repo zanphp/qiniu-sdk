@@ -1,7 +1,8 @@
 <?php
-namespace Qiniu\Processing;
+namespace Zan\Qiniu\Processing;
 
-use Qiniu;
+use Zan\Qiniu;
+use function Zan\Qiniu\base64_urlSafeEncode;
 
 /**
  * 主要涉及图片链接拼接
@@ -130,7 +131,7 @@ final class ImageUrlBuilder
             return $url;
         }
 
-        $waterStr = 'watermark/1/image/' . \Qiniu\base64_urlSafeEncode($image) . '/';
+        $waterStr = 'watermark/1/image/' . base64_urlSafeEncode($image) . '/';
 
         // 拼接水印透明度
         if (is_numeric($dissolve)
@@ -204,8 +205,8 @@ final class ImageUrlBuilder
         }
 
         $waterStr = 'watermark/2/text/'
-            . \Qiniu\base64_urlSafeEncode($text) . '/font/'
-            . \Qiniu\base64_urlSafeEncode($font) . '/';
+            . base64_urlSafeEncode($text) . '/font/'
+            . base64_urlSafeEncode($font) . '/';
 
         // 拼接文字大小
         if (is_int($fontSize)) {
@@ -216,7 +217,7 @@ final class ImageUrlBuilder
         if (! is_null($fontColor)
             && $fontColor
         ) {
-            $waterStr .= 'fill/' . \Qiniu\base64_urlSafeEncode($fontColor) . '/';
+            $waterStr .= 'fill/' . base64_urlSafeEncode($fontColor) . '/';
         }
 
         // 拼接水印透明度

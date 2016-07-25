@@ -1,5 +1,5 @@
 <?php
-namespace Qiniu\Http;
+namespace Zan\Qiniu\Http;
 
 use Zan\Framework\Network\Common\HttpClient as ZanHttpClient;
 

@@ -1,10 +1,12 @@
 <?php
-namespace Qiniu\Storage;
+namespace Zan\Qiniu\Storage;
 
-use Qiniu\Config;
-use Qiniu\Http\Client;
-use Qiniu\Http\Error;
-use Qiniu\Http\Response;
+use Zan\Qiniu\Config;
+use Zan\Qiniu\Http\Client;
+use Zan\Qiniu\Http\Error;
+use Zan\Qiniu\Http\Response;
+use function Zan\Qiniu\crc32_data;
+use function Zan\Qiniu\crc32_file;
 
 final class FormUploader
 {
@@ -44,7 +46,7 @@ final class FormUploader
             $fields['key'] = $key;
         }
         if ($checkCrc) {
-            $fields['crc32'] = \Qiniu\crc32_data($data);
+            $fields['crc32'] = crc32_data($data);
         }
         if ($params) {
             foreach ($params as $k => $v) {
@@ -97,7 +99,7 @@ final class FormUploader
             $fields['key'] = $key;
         }
         if ($checkCrc) {
-            $fields['crc32'] = \Qiniu\crc32_file($filePath);
+            $fields['crc32'] = crc32_file($filePath);
         }
         if ($params) {
             foreach ($params as $k => $v) {

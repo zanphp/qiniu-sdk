@@ -1,7 +1,8 @@
 <?php
-namespace Qiniu;
+namespace Zan\Qiniu;
 
-use Qiniu;
+use Zan\Qiniu;
+use function Zan\Qiniu\base64_urlSafeEncode;
 
 final class Auth
 {
@@ -17,12 +18,12 @@ final class Auth
     public function sign($data)
     {
         $hmac = hash_hmac('sha1', $data, $this->secretKey, true);
-        return $this->accessKey . ':' . \Qiniu\base64_urlSafeEncode($hmac);
+        return $this->accessKey . ':' . base64_urlSafeEncode($hmac);
     }
 
     public function signWithData($data)
     {
-        $data = \Qiniu\base64_urlSafeEncode($data);
+        $data = base64_urlSafeEncode($data);
         return $this->sign($data) . ':' . $data;
     }
 

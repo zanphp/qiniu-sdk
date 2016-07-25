@@ -1,5 +1,5 @@
 <?php
-namespace Qiniu;
+namespace Zan\Qiniu;
 
 final class Config
 {

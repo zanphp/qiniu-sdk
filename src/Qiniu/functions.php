@@ -1,6 +1,8 @@
 <?php
 
-namespace Qiniu;
+namespace Zan\Qiniu;
+
+use Zan\Qiniu\Processing\ImageUrlBuilder;
 
 if (!defined('QINIU_FUNCTIONS_VERSION')) {
     define('QINIU_FUNCTIONS_VERSION', Config::SDK_VER);
@@ -165,7 +167,7 @@ if (!defined('QINIU_FUNCTIONS_VERSION')) {
     ) {
         static $imageUrlBuilder = null;
         if (is_null($imageUrlBuilder)) {
-            $imageUrlBuilder = new \Qiniu\Processing\ImageUrlBuilder;
+            $imageUrlBuilder = new ImageUrlBuilder;
         }
 
         return call_user_func_array(array($imageUrlBuilder, 'thumbnail'), func_get_args());
@@ -196,7 +198,7 @@ if (!defined('QINIU_FUNCTIONS_VERSION')) {
     ) {
         static $imageUrlBuilder = null;
         if (is_null($imageUrlBuilder)) {
-            $imageUrlBuilder = new \Qiniu\Processing\ImageUrlBuilder;
+            $imageUrlBuilder = new ImageUrlBuilder;
         }
 
         return call_user_func_array(array($imageUrlBuilder, 'waterImg'), func_get_args());
@@ -231,7 +233,7 @@ if (!defined('QINIU_FUNCTIONS_VERSION')) {
     ) {
         static $imageUrlBuilder = null;
         if (is_null($imageUrlBuilder)) {
-            $imageUrlBuilder = new \Qiniu\Processing\ImageUrlBuilder;
+            $imageUrlBuilder = new ImageUrlBuilder;
         }
 
         return call_user_func_array(array($imageUrlBuilder, 'waterText'), func_get_args());

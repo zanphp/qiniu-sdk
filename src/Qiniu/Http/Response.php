@@ -1,6 +1,7 @@
 <?php
 
-namespace Qiniu\Http;
+namespace Zan\Qiniu\Http;
+use function Zan\Qiniu\json_decode;
 
 /**
  * HTTP response Object
@@ -130,7 +131,7 @@ final class Response
 
     private static function bodyJson($body)
     {
-        return \Qiniu\json_decode((string) $body, true, 512);
+        return json_decode((string) $body, true, 512);
     }
 
     public function xVia()

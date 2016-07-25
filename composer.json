@@ -19,13 +19,13 @@
         }
     ],
     "require": {
-        "php": ">=5.3.3",
+        "php": ">=5.6",
         "zanphp/zan": "dev-master"
     },
     "require-dev": {
     },
     "autoload": {
-        "psr-4": {"Qiniu\\": "src/Qiniu"},
+        "psr-4": {"Yz\\Qiniu\\": "src/Qiniu"},
         "files": ["src/Qiniu/functions.php"]
     }
 }

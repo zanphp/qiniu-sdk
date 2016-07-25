@@ -1,11 +1,12 @@
 <?php
-namespace Qiniu\Processing;
+namespace Zan\Qiniu\Processing;
 
-use Qiniu\Auth;
-use Qiniu\Config;
-use Qiniu\Http\Client;
-use Qiniu\Http\Error;
-use Qiniu\Http\Response;
+use Zan\Qiniu\Auth;
+use Zan\Qiniu\Config;
+use Zan\Qiniu\Http\Client;
+use Zan\Qiniu\Http\Error;
+use Zan\Qiniu\Http\Response;
+use function Zan\Qiniu\setWithoutEmpty;
 
 /**
  * 持久化处理类,该类用于主动触发异步持久化操作.
@@ -66,8 +67,8 @@ final class PersistentFop
             $fops = implode(';', $fops);
         }
         $params = array('bucket' => $this->bucket, 'key' => $key, 'fops' => $fops);
-        \Qiniu\setWithoutEmpty($params, 'pipeline', $this->pipeline);
-        \Qiniu\setWithoutEmpty($params, 'notifyURL', $this->notify_url);
+        setWithoutEmpty($params, 'pipeline', $this->pipeline);
+        setWithoutEmpty($params, 'notifyURL', $this->notify_url);
         if ($this->force) {
             $params['force'] = 1;
         }

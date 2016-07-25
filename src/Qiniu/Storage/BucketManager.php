@@ -1,11 +1,14 @@
 <?php
-namespace Qiniu\Storage;
+namespace Zan\Qiniu\Storage;
 
-use Qiniu\Auth;
-use Qiniu\Config;
-use Qiniu\Http\Client;
-use Qiniu\Http\Error;
-use Qiniu\Http\Response;
+use Zan\Qiniu\Auth;
+use Zan\Qiniu\Config;
+use Zan\Qiniu\Http\Client;
+use Zan\Qiniu\Http\Error;
+use Zan\Qiniu\Http\Response;
+use function Zan\Qiniu\entry;
+use function Zan\Qiniu\base64_urlSafeEncode;
+use function Zan\Qiniu\setWithoutEmpty;
 
 /**
  * 主要涉及了空间资源管理及批量操作接口的实现，具体的接口规格可以参考
@@ -54,10 +57,10 @@ final class BucketManager
     public function listFiles($bucket, $prefix = null, $marker = null, $limit = 1000, $delimiter = null)
     {
         $query = array('bucket' => $bucket);
-        \Qiniu\setWithoutEmpty($query, 'prefix', $prefix);
-        \Qiniu\setWithoutEmpty($query, 'marker', $marker);
-        \Qiniu\setWithoutEmpty($query, 'limit', $limit);
-        \Qiniu\setWithoutEmpty($query, 'delimiter', $delimiter);
+        setWithoutEmpty($query, 'prefix', $prefix);
+        setWithoutEmpty($query, 'marker', $marker);
+        setWithoutEmpty($query, 'limit', $limit);
+        setWithoutEmpty($query, 'delimiter', $delimiter);
         $url = Config::RSF_HOST . '/list?' . http_build_query($query);
         list($ret, $error) = (yield $this->get($url));
         if ($ret === null) {
@@ -86,7 +89,7 @@ final class BucketManager
      */
     public function stat($bucket, $key)
     {
-        $path = '/stat/' . \Qiniu\entry($bucket, $key);
+        $path = '/stat/' . entry($bucket, $key);
         yield $this->rsGet($path);
     }
 
@@ -101,7 +104,7 @@ final class BucketManager
      */
     public function delete($bucket, $key)
     {
-        $path = '/delete/' . \Qiniu\entry($bucket, $key);
+        $path = '/delete/' . entry($bucket, $key);
         list(, $error) = (yield $this->rsPost($path));
         yield $error;
     }
@@ -134,8 +137,8 @@ final class BucketManager
      */
     public function copy($from_bucket, $from_key, $to_bucket, $to_key)
     {
-        $from = \Qiniu\entry($from_bucket, $from_key);
-        $to = \Qiniu\entry($to_bucket, $to_key);
+        $from = entry($from_bucket, $from_key);
+        $to = entry($to_bucket, $to_key);
         $path = '/copy/' . $from . '/' . $to;
         list(, $error) = (yield $this->rsPost($path));
         yield $error;
@@ -154,8 +157,8 @@ final class BucketManager
      */
     public function move($from_bucket, $from_key, $to_bucket, $to_key)
     {
-        $from = \Qiniu\entry($from_bucket, $from_key);
-        $to = \Qiniu\entry($to_bucket, $to_key);
+        $from = entry($from_bucket, $from_key);
+        $to = entry($to_bucket, $to_key);
         $path = '/move/' . $from . '/' . $to;
         list(, $error) = (yield $this->rsPost($path));
         yield $error;
@@ -173,8 +176,8 @@ final class BucketManager
      */
     public function changeMime($bucket, $key, $mime)
     {
-        $resource = \Qiniu\entry($bucket, $key);
-        $encode_mime = \Qiniu\base64_urlSafeEncode($mime);
+        $resource = entry($bucket, $key);
+        $encode_mime = base64_urlSafeEncode($mime);
         $path = '/chgm/' . $resource . '/mime/' .$encode_mime;
         list(, $error) = (yield $this->rsPost($path));
         yield $error;
@@ -205,8 +208,8 @@ final class BucketManager
     public function fetch($url, $bucket, $key = null)
     {
 
-        $resource = \Qiniu\base64_urlSafeEncode($url);
-        $to = \Qiniu\entry($bucket, $key);
+        $resource = base64_urlSafeEncode($url);
+        $to = entry($bucket, $key);
         $path = '/fetch/' . $resource . '/to/' . $to;
         
         yield $this->ioPost($path);
@@ -223,7 +226,7 @@ final class BucketManager
      */
     public function prefetch($bucket, $key)
     {
-        $resource = \Qiniu\entry($bucket, $key);
+        $resource = entry($bucket, $key);
         $path = '/prefetch/' . $resource;
         list(, $error) = (yield $this->ioPost($path));
         yield $error;
@@ -342,7 +345,7 @@ final class BucketManager
     {
         $data = array();
         foreach ($keys as $key) {
-            array_push($data, $operation . '/' . \Qiniu\entry($bucket, $key));
+            array_push($data, $operation . '/' . entry($bucket, $key));
         }
         return $data;
     }
@@ -354,8 +357,8 @@ final class BucketManager
         }
         $data = array();
         foreach ($key_pairs as $from_key => $to_key) {
-            $from = \Qiniu\entry($source_bucket, $from_key);
-            $to = \Qiniu\entry($target_bucket, $to_key);
+            $from = entry($source_bucket, $from_key);
+            $to = entry($target_bucket, $to_key);
             array_push($data, $operation . '/' . $from . '/' . $to);
         }
         return $data;

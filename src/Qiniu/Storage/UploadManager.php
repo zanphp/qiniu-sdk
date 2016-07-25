@@ -1,7 +1,7 @@
 <?php
-namespace Qiniu\Storage;
+namespace Zan\Qiniu\Storage;
 
-use Qiniu\Config;
+use Zan\Qiniu\Config;
 
 /**
  * 主要涉及了资源上传接口的实现

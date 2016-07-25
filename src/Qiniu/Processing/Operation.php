@@ -1,11 +1,11 @@
 <?php
 
-namespace Qiniu\Processing;
+namespace Zan\Qiniu\Processing;
 
-use Qiniu\Auth;
-use Qiniu\Http\Client;
-use Qiniu\Http\Error;
-use Qiniu\Http\Response;
+use Zan\Qiniu\Auth;
+use Zan\Qiniu\Http\Client;
+use Zan\Qiniu\Http\Error;
+use Zan\Qiniu\Http\Response;
 
 final class Operation
 {
