@@ -25,7 +25,7 @@
     "require-dev": {
     },
     "autoload": {
-        "psr-4": {"Yz\\Qiniu\\": "src/Qiniu"},
+        "psr-4": {"Zan\\Qiniu\\": "src/Qiniu"},
         "files": ["src/Qiniu/functions.php"]
     }
 }
