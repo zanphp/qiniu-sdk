@@ -38,12 +38,14 @@ final class Operation
         /* @var $resp Response */
         $resp = (yield Client::get($url));
         if (!$resp->ok()) {
-            return array(null, new Error($url, $resp));
+            yield array(null, new Error($url, $resp));
+            return;
         }
         if ($resp->json() !== null) {
-            return array($resp->json(), null);
+            yield array($resp->json(), null);
+            return;
         }
-        return array($resp->body, null);
+        yield array($resp->body, null);
     }
 
     /**
