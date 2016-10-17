@@ -20,7 +20,7 @@
     ],
     "require": {
         "php": ">=5.6",
-        "zanphp/zan": "dev-master"
+        "zanphp/zan": "dev-hotfix/connected_timeout"
     },
     "require-dev": {
     },
