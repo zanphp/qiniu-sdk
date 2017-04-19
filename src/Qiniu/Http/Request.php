@@ -13,7 +13,7 @@ final class Request
     public $isUseProxy;
 
     public function __construct(
-        $method, $url, array $headers = array(), $body = null, $timeout = 5000, $isUseProxy = false
+        $method, $url, array $headers = array(), $body = null, $timeout = 5000, $isUseProxy = true
     ) {
         $this->method = strtoupper($method);
         $this->url = $url;
