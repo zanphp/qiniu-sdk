@@ -109,6 +109,32 @@ final class BucketManager
         yield $error;
     }
 
+    /**
+     * 刷新指定资源
+     * @param string $url
+     * @return \Generator|void
+     */
+    public function refresh($url)
+    {
+        $refreshApiUrl = Config::CDN_HOST . '/refresh';
+        $authorization = $this->auth->signRequest($refreshApiUrl, null);
+        $headers = [
+            'Authorization' => 'QBox ' . $authorization,
+            'Content-Type' => 'application/json',
+        ];
+        $data = [
+            'urls' => [$url],
+        ];
+        /* @var $ret Response */
+        $ret = (yield Client::post($refreshApiUrl, json_encode($data), $headers));
+        if (!$ret->ok()) {
+            yield array(null, new Error($url, $ret));
+        } else {
+            $r = ($ret->body === null) ? array() : $ret->json();
+            yield array($r, null);
+        }
+    }
+
 
     /**
      * 给资源进行重命名，本质为move操作。
