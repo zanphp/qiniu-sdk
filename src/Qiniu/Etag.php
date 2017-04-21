@@ -72,3 +72,4 @@ final class Etag
         return array($etag, null);
     }
 }
+
