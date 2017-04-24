@@ -111,8 +111,8 @@ final class BucketManager
 
     /**
      * 刷新指定资源
-     * @param string $url
-     * @return \Generator|void
+     * @param string $url 资源url
+     * @return array
      */
     public function refresh($url)
     {
@@ -128,11 +128,14 @@ final class BucketManager
         /* @var $ret Response */
         $ret = (yield Client::post($refreshApiUrl, json_encode($data), $headers));
         if (!$ret->ok()) {
-            yield array(null, new Error($url, $ret));
-        } else {
-            $r = ($ret->body === null) ? array() : $ret->json();
-            yield array($r, null);
+            yield array(false, new Error($url, $ret));
         }
+        $returnCode = $ret->json()['code'];
+        if ($returnCode === 200) {
+            yield array(true, null);
+        }
+        yield array(false, new Error($url, $ret));
+
     }
 
 
