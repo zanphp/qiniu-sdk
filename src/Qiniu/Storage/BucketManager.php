@@ -116,27 +116,13 @@ final class BucketManager
      */
     public function refresh($url)
     {
-        $refreshApiUrl = Config::CDN_HOST . '/refresh';
-        $authorization = $this->auth->signRequest($refreshApiUrl, null);
-        $headers = [
-            'Authorization' => 'QBox ' . $authorization,
-            'Content-Type' => 'application/json',
-        ];
+        $ApiUrl = Config::CDN_HOST . '/refresh';
         $data = [
             'urls' => [$url],
         ];
-        /* @var $ret Response */
-        $ret = (yield Client::post($refreshApiUrl, json_encode($data), $headers));
-        if (!$ret->ok()) {
-            yield array(false, new Error($url, $ret));
-            return;
-        }
-        $returnCode = $ret->json()['code'];
-        if ($returnCode === 200) {
-            yield array(true, null);
-            return;
-        }
-        yield array(false, new Error($url, $ret));
+        $headers = $this->auth->authorization($ApiUrl, null, 'application/json');
+        list(, $error) = (yield $this->postWithCustomHeaders($ApiUrl, json_encode($data), $headers));
+        yield $error;
 
     }
 
@@ -339,6 +325,30 @@ final class BucketManager
             return;
         }
 
+        $r = ($ret->body === null) ? array() : $ret->json();
+        yield array($r, null);
+    }
+
+    /**
+     * 自定义头部的Post请求
+     * @param string $url
+     * @param string $body
+     * @param array $headers
+     * @return \Generator -> array
+     */
+    private function postWithCustomHeaders($url, $body,$headers)
+    {
+        // swoole_http_client 只允许body为以下两种类型
+        // 空数组会报错http_build_query fail, so, ""
+        if (!is_array($body) || !is_string($body)) {
+            $body = "";
+        }
+        /* @var $ret Response */
+        $ret = (yield Client::post($url, $body, $headers));
+        if (!$ret->ok()) {
+            yield array(null, new Error($url, $ret));
+            return;
+        }
         $r = ($ret->body === null) ? array() : $ret->json();
         yield array($r, null);
     }
