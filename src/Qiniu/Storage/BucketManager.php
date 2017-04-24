@@ -129,10 +129,12 @@ final class BucketManager
         $ret = (yield Client::post($refreshApiUrl, json_encode($data), $headers));
         if (!$ret->ok()) {
             yield array(false, new Error($url, $ret));
+            return;
         }
         $returnCode = $ret->json()['code'];
         if ($returnCode === 200) {
             yield array(true, null);
+            return;
         }
         yield array(false, new Error($url, $ret));
 
