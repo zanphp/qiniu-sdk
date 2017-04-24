@@ -109,6 +109,24 @@ final class BucketManager
         yield $error;
     }
 
+    /**
+     * 刷新指定资源
+     * @param string $url 资源url
+     * @return array 响应正常error为NULL，七牛响应代码以数组$res中code为准
+     */
+    public function refresh($url)
+    {
+        $ApiUrl = Config::CDN_HOST . '/refresh';
+        $data = [
+            'urls' => [$url],
+        ];
+
+        $headers = $this->auth->authorization($ApiUrl, null, 'application/json');
+        $headers["Content-Type"] = 'application/json';
+        list($res, $error) = (yield $this->postWithCustomHeaders($ApiUrl, json_encode($data), $headers));
+        yield array($res, $error);
+    }
+
 
     /**
      * 给资源进行重命名，本质为move操作。
@@ -308,6 +326,33 @@ final class BucketManager
             return;
         }
 
+        $r = ($ret->body === null) ? array() : $ret->json();
+        yield array($r, null);
+    }
+
+    /**
+     * 自定义头部的Post请求
+     * @param string $url
+     * @param string $body
+     * @param array $headers
+     * @return \Generator -> array
+     */
+    private function postWithCustomHeaders($url, $body, $headers)
+    {
+        // swoole_http_client 只允许body为以下两种类型
+        if (!is_array($body) && !is_string($body)) {
+            $body = "";
+        }
+        // 空数组会报错http_build_query fail, so, ""
+        if (is_array($body) && empty($body)) {
+            $body = "";
+        }
+        /* @var $ret Response */
+        $ret = (yield Client::post($url, $body, $headers));
+        if (!$ret->ok()) {
+            yield array(null, new Error($url, $ret));
+            return;
+        }
         $r = ($ret->body === null) ? array() : $ret->json();
         yield array($r, null);
     }
