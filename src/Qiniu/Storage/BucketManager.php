@@ -121,9 +121,9 @@ final class BucketManager
             'urls' => [$url],
         ];
         $headers = $this->auth->authorization($ApiUrl, null, 'application/json');
-        list(, $error) = (yield $this->postWithCustomHeaders($ApiUrl, json_encode($data), $headers));
-        yield $error;
-
+        $headers["Content-Type"] = 'application/json';
+        list($r, $error) = (yield $this->postWithCustomHeaders($ApiUrl, json_encode($data), $headers));
+        yield array('res' => $r, 'error' => $error);
     }
 
 
