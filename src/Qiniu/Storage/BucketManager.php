@@ -112,7 +112,7 @@ final class BucketManager
     /**
      * 刷新指定资源
      * @param string $url 资源url
-     * @return array
+     * @return array 响应正常error为NULL，七牛响应代码以数组$res中code为准
      */
     public function refresh($url)
     {
@@ -122,8 +122,8 @@ final class BucketManager
         ];
         $headers = $this->auth->authorization($ApiUrl, null, 'application/json');
         $headers["Content-Type"] = 'application/json';
-        list($r, $error) = (yield $this->postWithCustomHeaders($ApiUrl, json_encode($data), $headers));
-        yield array('res' => $r, 'error' => $error);
+        list($res, $error) = (yield $this->postWithCustomHeaders($ApiUrl, json_encode($data), $headers));
+        yield array($res, $error);
     }
 
 
@@ -336,7 +336,7 @@ final class BucketManager
      * @param array $headers
      * @return \Generator -> array
      */
-    private function postWithCustomHeaders($url, $body,$headers)
+    private function postWithCustomHeaders($url, $body, $headers)
     {
         // swoole_http_client 只允许body为以下两种类型
         // 空数组会报错http_build_query fail, so, ""
