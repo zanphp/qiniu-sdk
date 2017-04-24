@@ -339,8 +339,11 @@ final class BucketManager
     private function postWithCustomHeaders($url, $body, $headers)
     {
         // swoole_http_client 只允许body为以下两种类型
+        if (!is_array($body) && !is_string($body)) {
+            $body = "";
+        }
         // 空数组会报错http_build_query fail, so, ""
-        if (!is_array($body) || !is_string($body)) {
+        if (is_array($body) && empty($body)) {
             $body = "";
         }
         /* @var $ret Response */
