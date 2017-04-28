@@ -105,6 +105,8 @@ final class Auth
         'saveKey',
         'insertOnly',
 
+	'transform',
+
         'detectMime',
         'mimeLimit',
         'fsizeMin',
