@@ -1,11 +1,11 @@
 <?php
-namespace Zan\Qiniu\Storage;
+namespace ZanPHP\SDK\Qiniu\Storage;
 
-use Zan\Qiniu\Config;
-use Zan\Qiniu\Http\Client;
-use Zan\Qiniu\Http\Error;
-use function Zan\Qiniu\crc32_data;
-use function Zan\Qiniu\base64_urlSafeEncode;
+use ZanPHP\SDK\Qiniu\Config;
+use ZanPHP\SDK\Qiniu\Http\Client;
+use ZanPHP\SDK\Qiniu\Http\Error;
+use function ZanPHP\SDK\Qiniu\crc32_data;
+use function ZanPHP\SDK\Qiniu\base64_urlSafeEncode;
 
 /**
  * 断点续上传类, 该类主要实现了断点续上传中的分块上传,

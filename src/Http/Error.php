@@ -1,5 +1,5 @@
 <?php
-namespace Zan\Qiniu\Http;
+namespace ZanPHP\SDK\Qiniu\Http;
 
 final class Error
 {

@@ -1,7 +1,7 @@
 <?php
 
-namespace Zan\Qiniu\Http;
-use function Zan\Qiniu\json_decode;
+namespace ZanPHP\SDK\Qiniu\Http;
+use function ZanPHP\SDK\Qiniu\json_decode;
 
 /**
  * HTTP response Object

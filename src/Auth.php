@@ -1,8 +1,8 @@
 <?php
-namespace Zan\Qiniu;
+namespace ZanPHP\SDK\Qiniu;
 
-use Zan\Qiniu;
-use function Zan\Qiniu\base64_urlSafeEncode;
+use ZanPHP\SDK\Qiniu;
+use function ZanPHP\SDK\Qiniu\base64_urlSafeEncode;
 
 final class Auth
 {

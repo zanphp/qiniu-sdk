@@ -1,8 +1,8 @@
 <?php
 
-namespace Zan\Qiniu;
+namespace ZanPHP\SDK\Qiniu;
 
-use Zan\Qiniu\Processing\ImageUrlBuilder;
+use ZanPHP\SDK\Qiniu\Processing\ImageUrlBuilder;
 
 // namespace不同, 不检查, 除非引入两次, 否则不会产生函数重定义
 //if (!defined('QINIU_FUNCTIONS_VERSION')) {

@@ -1,8 +1,8 @@
 <?php
-namespace Zan\Qiniu\Processing;
+namespace ZanPHP\SDK\Qiniu\Processing;
 
-use Zan\Qiniu;
-use function Zan\Qiniu\base64_urlSafeEncode;
+use ZanPHP\SDK\Qiniu;
+use function ZanPHP\SDK\Qiniu\base64_urlSafeEncode;
 
 /**
  * 主要涉及图片链接拼接

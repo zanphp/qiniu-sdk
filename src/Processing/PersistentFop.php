@@ -1,12 +1,12 @@
 <?php
-namespace Zan\Qiniu\Processing;
+namespace ZanPHP\SDK\Qiniu\Processing;
 
-use Zan\Qiniu\Auth;
-use Zan\Qiniu\Config;
-use Zan\Qiniu\Http\Client;
-use Zan\Qiniu\Http\Error;
-use Zan\Qiniu\Http\Response;
-use function Zan\Qiniu\setWithoutEmpty;
+use ZanPHP\SDK\Qiniu\Auth;
+use ZanPHP\SDK\Qiniu\Config;
+use ZanPHP\SDK\Qiniu\Http\Client;
+use ZanPHP\SDK\Qiniu\Http\Error;
+use ZanPHP\SDK\Qiniu\Http\Response;
+use function ZanPHP\SDK\Qiniu\setWithoutEmpty;
 
 /**
  * 持久化处理类,该类用于主动触发异步持久化操作.

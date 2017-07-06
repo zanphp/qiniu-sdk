@@ -1,6 +1,6 @@
 <?php
 
-namespace Zan\Qiniu;
+namespace ZanPHP\SDK\Qiniu;
 
 final class Etag
 {
@@ -68,7 +68,7 @@ final class Etag
             list($sha1Final, ) = self::calcSha1($tmpData);
             $sha1Buf = array_merge($sha1Buf, $sha1Final);
         }
-        $etag = \Zan\Qiniu\base64_urlSafeEncode(self::packArray('C*', $sha1Buf));
+        $etag = \ZanPHP\SDK\Qiniu\base64_urlSafeEncode(self::packArray('C*', $sha1Buf));
         return array($etag, null);
     }
 }

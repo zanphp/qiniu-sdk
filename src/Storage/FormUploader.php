@@ -1,12 +1,12 @@
 <?php
-namespace Zan\Qiniu\Storage;
+namespace ZanPHP\SDK\Qiniu\Storage;
 
-use Zan\Qiniu\Config;
-use Zan\Qiniu\Http\Client;
-use Zan\Qiniu\Http\Error;
-use Zan\Qiniu\Http\Response;
-use function Zan\Qiniu\crc32_data;
-use function Zan\Qiniu\crc32_file;
+use ZanPHP\SDK\Qiniu\Config;
+use ZanPHP\SDK\Qiniu\Http\Client;
+use ZanPHP\SDK\Qiniu\Http\Error;
+use ZanPHP\SDK\Qiniu\Http\Response;
+use function ZanPHP\SDK\Qiniu\crc32_data;
+use function ZanPHP\SDK\Qiniu\crc32_file;
 
 final class FormUploader
 {

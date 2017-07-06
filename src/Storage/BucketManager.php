@@ -1,14 +1,14 @@
 <?php
-namespace Zan\Qiniu\Storage;
+namespace ZanPHP\SDK\Qiniu\Storage;
 
-use Zan\Qiniu\Auth;
-use Zan\Qiniu\Config;
-use Zan\Qiniu\Http\Client;
-use Zan\Qiniu\Http\Error;
-use Zan\Qiniu\Http\Response;
-use function Zan\Qiniu\entry;
-use function Zan\Qiniu\base64_urlSafeEncode;
-use function Zan\Qiniu\setWithoutEmpty;
+use ZanPHP\SDK\Qiniu\Auth;
+use ZanPHP\SDK\Qiniu\Config;
+use ZanPHP\SDK\Qiniu\Http\Client;
+use ZanPHP\SDK\Qiniu\Http\Error;
+use ZanPHP\SDK\Qiniu\Http\Response;
+use function ZanPHP\SDK\Qiniu\entry;
+use function ZanPHP\SDK\Qiniu\base64_urlSafeEncode;
+use function ZanPHP\SDK\Qiniu\setWithoutEmpty;
 
 /**
  * 主要涉及了空间资源管理及批量操作接口的实现，具体的接口规格可以参考
